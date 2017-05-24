@@ -1,0 +1,15 @@
+ <h2 class="page-header">Home</h2>
+ <section class="get">
+    <a href="/get-data">DATA</a>
+    <div>
+        {{# each items }}
+            <article class="item">
+                <div>Id: {{ this.id }}</div>
+                <div>Artist: {{ this.artist }}</div>
+                <div>Album: {{ this.album }}</div>
+                <div>Song: {{ this.song }}</div>
+            </article>
+        {{/each}}
+    </div>
+</section>
+  
