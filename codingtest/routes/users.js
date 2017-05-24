@@ -15,6 +15,18 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
+//after logged in
+router.get('/addDrop', function(req, res){
+	res.render('addDrop');
+});
+
+
+//Library
+
+router.get('/Library', function(req, res){
+	res.render('library');
+});
+
 // Register User
 router.post('/register', function(req, res){
 	var name = req.body.name;
@@ -22,7 +34,7 @@ router.post('/register', function(req, res){
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
-	// Validation
+// Validation
 	req.checkBody('name', 'Name is required').notEmpty();
 	req.checkBody('username', 'Username is required').notEmpty();
 	req.checkBody('password', 'Password is required').notEmpty();
@@ -46,8 +58,7 @@ router.post('/register', function(req, res){
 			console.log(user);
 		});
 
-		req.flash('success_msg', 'You are registered and can now login');
-
+		req.flash('success_msg', 'Registered ');
 		res.redirect('/users/login');
 	}
 });
@@ -82,10 +93,25 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+  passport.authenticate('local', {successRedirect:'/users/addDrop', failureRedirect:'/users/login',failureFlash: true}),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/users/addDrop');
   });
+
+
+router.post('/addDrop', function(req, res) {
+    res.redirect('/users/addDrop');
+  });
+
+
+
+
+router.post('/library', function(req, res) {
+    res.redirect('/users/library');
+  });
+
+
+
 
 router.get('/logout', function(req, res){
 	req.logout();
