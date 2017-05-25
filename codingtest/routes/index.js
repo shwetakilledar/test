@@ -8,13 +8,11 @@ var url='mongodb://localhost:27017/codingtest3';
 
 
 // Homepage
-router.get('/', function(req, res){
-	res.render('index');
-});
 
 
 
-router.get('/get-data', function(req, res, next) {
+
+router.get('/', function(req, res, next) {
   var resultArray = [];
   mongo.connect(url, function(err, db) {
     if (err) throw err;
