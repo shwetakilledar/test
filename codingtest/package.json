@@ -1,0 +1,28 @@
+{
+  "name": "codingtest",
+  "version": "1.0.0",
+  "description": "coding",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shweta",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "passport-http": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-local": "*"
+  }
+}
