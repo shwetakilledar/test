@@ -2,11 +2,21 @@
 <form method="post" action="/users/addDrop">
   <div class="form-group">
     <label>Enter ID</label>
-    <input type="text" class="form-control" name="addedId" placeholder="Enter ID from following table">
-  </div>
-  <div class="form-group">
-  <button type="submit" class="btn btn-default" name="add">Add</button>
-  <button type="submit" class="btn btn-default" name="drop">Drop</button>
+    <input type="text" class="form-control" name="addedId" placeholder="Enter ID from following table to ADD/REMOVE from library">
+  
+<br>
+
+  <select name="dropdownlist">
+    <option value="">Please Select</option>
+    <option value="add">Add</option>
+    <option value="drop">Drop</option>
+    
+  </select>
+  <br><br>
+  <button type="submit" class="btn btn-default" >Submit</button>
+</form>
+</div>
+
 
 <br>
 <br>
@@ -18,90 +28,30 @@
 </form>
 
 <br>
-<br>
-<div>
-<label>Available Artist and their Songs</label>
-<br>
-<br>
-<table class="table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Artist</th>
-        <th>Album</th>
-        <th>Song</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Taylor Swift</td>
-        <td>Red</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>The Weekend</td>
-        <td>Starboy</td>
-        <td>Starboy</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Katy Perry</td>
-        <td>Prism</td>
-        <td>Roar</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Jennifer Lopez</td>
-        <td>A.K.A</td>
-        <td>First Love</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Adele</td>
-        <td>25</td>
-        <td>Hello</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>Sia</td>
-        <td>This is Acting</td>
-        <td>Alive</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>Rihanna</td>
-        <td>Anti</td>
-        <td>Consideration</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>Dilijit Dosanjh</td>
-        <td>Udta Punjab</td>
-        <td>Ikk Kudi</td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td>Akon</td>
-        <td>Freedom</td>
-        <td>Beautiful</td>
-      </tr>
-
-      <tr>
-        <td>10</td>
-        <td>Florida</td>
-        <td>R.O.O.T.S</td>
-        <td>Right Round</td>
-      </tr>
-
-
-
-
-
-    </tbody>
-  </table>
-  </div>
-
-
-  
+ 
+ <section class="get">
+    <!-- <a href="/get-data">DATA</a> -->
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>SongId</th>
+          <th>Song</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{# each items }}
+            <tr>
+              <td>{{ this.id }}</td>
+              <td>{{ this.song }}</td>
+              <td>{{ this.artist }}</td>
+              <td>{{ this.album }}</td>
+              <td><input type="button" value="Play" /></td>
+            </tr>
+        {{/each}}<br>
+        </tbody>
+    </div>
+</section>

@@ -15,6 +15,11 @@ var UserSchema = mongoose.Schema({
 	},
 	name: {
 		type: String
+	},
+
+	songids:{
+		type: Array,
+		default:[]
 	}
 });
 

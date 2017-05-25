@@ -2,15 +2,26 @@
  <section class="get">
     <a href="/get-data">DATA</a>
     <div>
-    	
+      <table class="table">
+        <thead>
+        <tr>
+          <th>SongId</th>
+          <th>Song</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
         {{# each items }}
-            <article class="item">
-                <div>Id: {{ this.id }}</div>
-                <div>Artist: {{ this.artist }}</div>
-				<div>Album: {{ this.album }}</div>
-                <div>Song: {{ this.song }}</div>
-            </article>
+            <tr>
+              <td>{{ this.id }}</td>
+              <td>{{ this.song }}</td>
+              <td>{{ this.artist }}</td>
+              <td>{{ this.album }}</td>
+              <td><input type="button" value="Play" /></td>
+            </tr>
         {{/each}}<br>
+        </tbody>
     </div>
 </section>
-  

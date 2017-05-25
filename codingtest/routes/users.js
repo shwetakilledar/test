@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var mongo = require('mongodb').MongoClient;
+
+var url='mongodb://localhost:27017/codingtest3';
+
 
 var User = require('../models/user');
 
@@ -17,13 +21,26 @@ router.get('/login', function(req, res){
 
 //after logged in
 router.get('/addDrop', function(req, res){
-	res.render('addDrop');
+	var resultArray = [];
+  mongo.connect(url, function(err, db) {
+    if (err) throw err;
+    var cursor = db.collection('songs').find();
+    cursor.forEach(function(doc, err) {
+      if (err) throw err;
+      resultArray.push(doc);
+    }, function() {
+      //console.log(resultArray);
+      db.close();
+      
+      res.render('addDrop', {items: resultArray});
+    });
+  });
 });
 
 
 //Library
 
-router.get('/Library', function(req, res){
+router.get('/library', function(req, res){
 	res.render('library');
 });
 
@@ -33,6 +50,8 @@ router.post('/register', function(req, res){
 	var username = req.body.username;
 	var password = req.body.password;
 	var password2 = req.body.password2;
+	
+	
 
 // Validation
 	req.checkBody('name', 'Name is required').notEmpty();
@@ -51,6 +70,8 @@ router.post('/register', function(req, res){
 			name: name,
 			username: username,
 			password: password
+			
+			
 		});
 
 		User.createUser(newUser, function(err, user){
@@ -99,9 +120,55 @@ router.post('/login',
   });
 
 
-router.post('/addDrop', function(req, res) {
-    res.redirect('/users/addDrop');
+
+router.post('/addDrop', function(req, res){
+	var addedId=req.body.addedId;
+	
+	var action=req.body.dropdownlist;
+	console.log(action);
+	if(action=="add"){
+		console.log(action);
+	var update = {
+    
+    $push: { songids:{$each:[addedId]}  }
+  	};
+
+  	}
+
+  	else if(action=="drop")
+  	{
+  		console.log(action);
+  		var update = {
+    
+    $pull: { songids:addedId }
+  	};
+
+
+  	}
+
+  var query = {
+    name:"ssk"
+  };
+
+  User.update(query, update, function(err, result) {
+    if(err) { throw err; }
+    
   });
+var resultArray = [];
+  mongo.connect(url, function(err, db) {
+    if (err) throw err;
+    var cursor = db.collection('songs').find();
+    cursor.forEach(function(doc, err) {
+      if (err) throw err;
+      resultArray.push(doc);
+    }, function() {
+      //console.log(resultArray);
+      db.close();
+      
+      res.render('addDrop', {items: resultArray});
+    });
+  });
+});
 
 
 
