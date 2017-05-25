@@ -116,18 +116,20 @@ passport.deserializeUser(function(id, done) {
 router.post('/login',
   passport.authenticate('local', {successRedirect:'/users/addDrop', failureRedirect:'/users/login',failureFlash: true}),
   function(req, res) {
-    res.redirect('/users/addDrop');
+    res.redirect('/users/addDrop',+ req.user.username);
   });
 
 
 
 router.post('/addDrop', function(req, res){
-	var addedId=req.body.addedId;
+	var username=req.user.username;
+  var addedId=req.body.addedId;
+  //console.log(username);
 	
 	var action=req.body.dropdownlist;
 	console.log(action);
 	if(action=="add"){
-		console.log(action);
+		//console.log(action);
 	var update = {
     
     $push: { songids:{$each:[addedId]}  }
@@ -137,7 +139,7 @@ router.post('/addDrop', function(req, res){
 
   	else if(action=="drop")
   	{
-  		console.log(action);
+  		//console.log(action);
   		var update = {
     
     $pull: { songids:addedId }
@@ -147,7 +149,7 @@ router.post('/addDrop', function(req, res){
   	}
 
   var query = {
-    name:"ssk"
+    username:username
   };
 
   User.update(query, update, function(err, result) {
