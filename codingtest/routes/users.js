@@ -205,21 +205,27 @@ router.post('/library', function(req, res) {
     }, function() {
       
       db.close();
-      songArray=getsongdetails(resultArray[0].songids);
-      console.log("-----");
-      console.log(songArray);
-      res.render('library', {items: songArray});
+      
+      songArray=getsongdetails(res, resultArray[0].songids);
+      //console.log("-----");
+      //console.log(songArray);
+      //res.render('library', {items: songArray});
+      
     });
   });
+      
+  
   });
 
-function getsongdetails(resultArray){
-  console.log("getsongdetails");
-  console.log(resultArray);
+function getsongdetails(res, resultArray){
+  //console.log("getsongdetails");
+  //console.log(resultArray);
   var songArray=[];
-for(var i=0 ;i<resultArray.length;i++)
-{
-  var query={id:resultArray[i]};
+
+// for(var i=0 ;i<resultArray.length;i++)
+// {
+  //console.log("hi"+resultArray[i]);
+  var query={id: {$in: resultArray }};
 
     mongo.connect(url, function(err, db) {
 
@@ -227,25 +233,26 @@ for(var i=0 ;i<resultArray.length;i++)
     var cursor = db.collection('songs').find(query);
     //console.log(cursor);
     cursor.forEach(function(doc, err) {
-      if (err) throw err;
-      songArray.push(doc);
-      console.log("----------Inside For")
-      console.log(songArray);
+    if (err) throw err;
+    songArray.push(doc);
+      // console.log("----------Inside For")
+      // console.log(songArray);
 
-      
-      
     }, function() {
       
       db.close();
+
+      //console.log("bye"+songArray);
+      res.render('library', {items: songArray});
+      //return songArray;
+
       
     });
   });
 
-}
-console.log("Outside For");
-console.log(songArray);
-console.log("Endd of songArray");
-return songArray;
+// }
+
+
 };
 
 
