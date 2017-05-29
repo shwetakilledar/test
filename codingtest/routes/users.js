@@ -41,7 +41,8 @@ router.get('/addDrop', function(req, res){
 //Library
 
 router.get('/library', function(req, res){
-	res.render('library');
+	
+  res.render('library');
 });
 
 // Register User
@@ -173,11 +174,89 @@ var resultArray = [];
 });
 
 
+//when he clicks viewlibrary
+//get  his songid to viewlibrary handlebars
+// pass songid in query
+// retrieve song array 
+
 
 
 router.post('/library', function(req, res) {
-    res.redirect('/users/library');
+   
+
+  var resultArray = [];
+  var songArray=[];
+  var username=req.user.username;
+  var query={username:username};
+
+  mongo.connect(url, function(err, db) {
+
+    if (err) throw err;
+    var cursor = db.collection('users').find(query);
+    //console.log(cursor);
+    cursor.forEach(function(doc, err) {
+      if (err) throw err;
+      resultArray.push(doc);
+
+      console.log(resultArray[0].songids);
+      
+      
+      
+    }, function() {
+      
+      db.close();
+      songArray=getsongdetails(resultArray[0].songids);
+      console.log("-----");
+      console.log(songArray);
+      res.render('library', {items: songArray});
+    });
   });
+  });
+
+function getsongdetails(resultArray){
+  console.log("getsongdetails");
+  console.log(resultArray);
+  var songArray=[];
+for(var i=0 ;i<resultArray.length;i++)
+{
+  var query={id:resultArray[i]};
+
+    mongo.connect(url, function(err, db) {
+
+    if (err) throw err;
+    var cursor = db.collection('songs').find(query);
+    //console.log(cursor);
+    cursor.forEach(function(doc, err) {
+      if (err) throw err;
+      songArray.push(doc);
+      console.log("----------Inside For")
+      console.log(songArray);
+
+      
+      
+    }, function() {
+      
+      db.close();
+      
+    });
+  });
+
+}
+console.log("Outside For");
+console.log(songArray);
+console.log("Endd of songArray");
+return songArray;
+};
+
+
+
+
+
+
+
+
+
+
 
 
 
