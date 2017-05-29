@@ -1,1 +1,27 @@
-Library
+<h2 class="page-header">Library</h2>
+ <section class="get">
+    
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>SongId</th>
+          <th>Song</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{# each items }}
+            <tr>
+              <td>{{ this.id }}</td>
+              <td>{{ this.song }}</td>
+              <td>{{ this.artist }}</td>
+              <td>{{ this.album }}</td>
+              <td><input type="button" value="Play" /></td>
+            </tr>
+        {{/each}}<br>
+        </tbody>
+    </div>
+</section>
